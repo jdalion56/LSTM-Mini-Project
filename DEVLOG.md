@@ -4,18 +4,7 @@ Troubleshooting and refactoring record for `scripts/lstm_rainfall_runoff02.ipynb
 
 ---
 
-## Issue 1 — Three Nested Git Repositories
-
-| | |
-|---|---|
-| **Problem** | Antigravity (git GUI) showed three separate repos: `LSTM`, `LSTM-Mini-Project`, `scripts` |
-| **Root Cause** | `git init` was run independently in three folders (`LSTM/`, `LSTM/scripts/`, and GitHub clone created `LSTM/LSTM-Mini-Project/`), all pointing to the same remote |
-| **Fix** | Deleted `.git` from `LSTM/` and `scripts/`, moved all code files into `LSTM-Mini-Project/scripts/`, force-pushed to clean up the stray "try" commit from GitHub |
-| **Result** | Single clean repo with one `.git` — only `LSTM-Mini-Project` shows in git GUI |
-
----
-
-## Issue 2 — Validation Set Sliding Window Leakage
+## Issue 1 — Validation Set Sliding Window Leakage
 
 | | |
 |---|---|
@@ -38,18 +27,18 @@ X_val,   y_val   = create_sequences(feature_scaler.transform(val_raw), ...)
 
 ---
 
-## Issue 3 — `create_sequences` Defined as Nested Function
+## Issue 2 — `create_sequences` Defined as Nested Function
 
 | | |
 |---|---|
 | **Problem** | `create_sequences` was defined inside `prepare_data`, making it impossible to call independently |
-| **Root Cause** | Original code bundled the val split inside `prepare_data` so there was no need to call it separately — once Issue 2 was fixed, the function needed to be called twice from outside |
+| **Root Cause** | Original code bundled the val split inside `prepare_data` so there was no need to call it separately — once Issue 1 was fixed, the function needed to be called from outside |
 | **Fix** | Moved `create_sequences` out as a standalone top-level function |
 | **Result** | Reusable and readable; called separately for train, val, and test splits |
 
 ---
 
-## Issue 4 — `train_model` Returning the Optimizer
+## Issue 3 — `train_model` Returning the Optimizer
 
 | | |
 |---|---|
@@ -76,13 +65,13 @@ def train_model(model, ..., optimizer, scheduler, device, patience=15):
 
 ---
 
-## Issue 5 — Overfitting
+## Issue 4 — Overfitting
 
 | | |
 |---|---|
 | **Problem** | Train loss kept decreasing while val loss plateaued, with a 10–17× gap between them |
 | **Root Cause** | Single-basin LSTM with sufficient capacity to memorize 20 years of training-period hydrology; no regularization or stopping mechanism |
-| **Expected Fix** | Three countermeasures combined: Weight Decay, ReduceLROnPlateau, Early Stopping |
+| **Fix** | Three countermeasures applied together: Weight Decay, ReduceLROnPlateau, Early Stopping |
 | **Result** | Train/val gap narrowed; NSE improved from 0.744 → 0.773 |
 
 **Countermeasures applied:**
@@ -100,17 +89,6 @@ scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
 )
 # EPOCHS=100 is a ceiling; Early Stopping terminates before it
 ```
-
----
-
-## Issue 6 — Jupyter Overwrote File Edits
-
-| | |
-|---|---|
-| **Problem** | Code edits made to the `.ipynb` file were invisible after reopening Jupyter |
-| **Root Cause** | Jupyter autosaves the entire notebook (including all cell sources) when cells are executed. If the notebook was already open with old cell content in memory, running it caused Jupyter to overwrite the updated file on disk with the old version |
-| **Fix** | Restored the correct version from the git commit (`git restore scripts/lstm_rainfall_runoff02.ipynb`), then reopened the file fresh in Jupyter (File → Revert Notebook) before running |
-| **Lesson** | After editing a `.ipynb` file externally, always close and reopen it in Jupyter (or File → Revert) before running — never trust the in-memory state |
 
 ---
 
