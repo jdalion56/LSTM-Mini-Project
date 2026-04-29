@@ -48,7 +48,7 @@ Tested on Python 3.13, PyTorch 2.9 (Apple Silicon MPS / CUDA / CPU all supported
 
 ### 2. Data
 
-Download CAMELS-US from <https://gdex.ucar.edu/dataset/camels.html> and place the contents inside the `Data/` folder following the structure above. The US state shapefile (used only for the basin location map) can be downloaded from the [US Census TIGER/Line shapefiles](https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html) — it is optional; the rest of the pipeline runs without it.
+Download CAMELS-US from <https://ral.ucar.edu/solutions/products/camels>  or <https://zenodo.org/records/15529996> and place the contents inside the `Data/` folder following the structure above. The US state shapefile (used only for the basin location map) can be downloaded from the [US Census TIGER/Line shapefiles](https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html) — it is optional; the rest of the pipeline runs without it.
 
 ### 3. Path configuration
 
@@ -76,3 +76,9 @@ Or open the notebook directly in VSCode. Re-running all cells reproduces the met
 - Kratzert, F. et al. (2019). Toward Improved Predictions in Ungauged Basins: Exploiting the Power of Machine Learning. *Water Resources Research*, 55(12).
 - Perrin, C., Michel, C., Andreassian, V. (2003). Improvement of a parsimonious model for streamflow simulation. *Journal of Hydrology*, 279(1-4), 275–289.
 - Addor, N. et al. (2017). The CAMELS data set: catchment attributes and meteorology for large-sample studies. *Hydrology and Earth System Sciences*, 21(10).
+- Newman, A. J., Clark, M. P., Sampson, K., Wood, A., Hay, L. E., Bock, A., Viger, R., Blodgett, D., Brekke, L., Arnold, J. R., Hopson, T. and Duan, Q.: Development of a large-sample watershed-scale hydrometeorological dataset for the contiguous USA: dataset characteristics and assessment of regional variability in hydrologic model performance, Hydrology and Earth System Sciences, 19, 209–223, doi:10.5194/hess-19-209-2015, 2015.
+- Addor, N., Newman, A. J., Mizukami, N. and Clark, M. P.: The CAMELS data set: catchment attributes and meteorology for large-sample studies, Hydrology and Earth System Sciences, doi:10.5194/hess-2017-169, 2017.
+
+## Acknowledgments
+
+Code implementation, refactoring, and documentation were assisted by Claude (Anthropic). The project design, modeling decisions, troubleshooting direction, and result interpretation are my own work. AI-assisted commits are attributed via `Co-Authored-By` in the git history.
