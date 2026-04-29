@@ -7,7 +7,7 @@ Based on:
     Journal of Hydrology, 279(1-4), 275-289.
 
 Designed as a physical-based baseline for LSTM rainfall-runoff models.
-Companion module to lstm_rainfall_runoff02.ipynb.
+Companion module to lstm_gr4j_rainfall_runoff.ipynb.
 """
 
 import numpy as np
