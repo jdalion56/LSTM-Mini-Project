@@ -1,6 +1,6 @@
 # LSTM-Mini-Project
 
-A proof-of-concept LSTM model for daily rainfall–runoff prediction on the CAMELS-US dataset, with a calibrated **GR4J + degree-day snow** physical baseline and a **linear regression** floor for comparison. All three models are trained, validated, and evaluated on the same basin and the same train/val/test split for a clean head-to-head.
+A proof-of-concept **LSTM** model for daily rainfall–runoff prediction on the CAMELS-US dataset, with a calibrated **GR4J + degree-day snow** physical baseline and a **linear regression** floor for comparison. All three models are trained, validated, and evaluated on the same basin and the same train/val/test split for a clean head-to-head.
 
 ## Results
 
